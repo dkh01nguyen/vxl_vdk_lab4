@@ -7,10 +7,14 @@
 #include "display7SEG.h"
 #include "software_timer.h"
 
+
+void fsm();
+
 void fsm_manual();
 void fsm_auto();
 void fsm_config();
 
 extern int status;
+extern int mode;
 
 #endif /* INC_FSM_TRAFFIC_LIGHT_H_ */

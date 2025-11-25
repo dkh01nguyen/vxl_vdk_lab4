@@ -33,6 +33,9 @@
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 
+void blink_LED() {
+	HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+}
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -100,10 +103,10 @@ int main(void)
   SCH_Init();
   SCH_Add_Task(getKeyInput, 0, 1);
   SCH_Add_Task(timerRun, 0, 1);
-  SCH_Add_Task(fsm_auto, 0, 250);
-  SCH_Add_Task(fsm_config, 0, 250);
-  SCH_Add_Task(fsm_manual, 0, 250);
+  SCH_Add_Task(fsm, 1, 1);
+  SCH_Add_Task(blink_LED, 0, 50);
   /* USER CODE END 2 */
+
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
@@ -215,8 +218,8 @@ static void MX_GPIO_Init(void)
                           |A2_Pin|G2_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, SEG0_Pin|SEG1_Pin|SEG2_Pin|SEG3_Pin
-                          |SEG4_Pin|SEG5_Pin|SEG6_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, SEG0_Pin|SEG1_Pin|SEG2_Pin|LED_Pin
+                          |SEG3_Pin|SEG4_Pin|SEG5_Pin|SEG6_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : BTN0_Pin */
   GPIO_InitStruct.Pin = BTN0_Pin;
@@ -241,10 +244,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : SEG0_Pin SEG1_Pin SEG2_Pin SEG3_Pin
-                           SEG4_Pin SEG5_Pin SEG6_Pin */
-  GPIO_InitStruct.Pin = SEG0_Pin|SEG1_Pin|SEG2_Pin|SEG3_Pin
-                          |SEG4_Pin|SEG5_Pin|SEG6_Pin;
+  /*Configure GPIO pins : SEG0_Pin SEG1_Pin SEG2_Pin LED_Pin
+                           SEG3_Pin SEG4_Pin SEG5_Pin SEG6_Pin */
+  GPIO_InitStruct.Pin = SEG0_Pin|SEG1_Pin|SEG2_Pin|LED_Pin
+                          |SEG3_Pin|SEG4_Pin|SEG5_Pin|SEG6_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;

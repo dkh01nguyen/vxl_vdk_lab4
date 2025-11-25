@@ -19,6 +19,9 @@
 #define AUTO_GREEN			41
 #define FLASH_AMBER			51
 #define MANUAL 				61
+#define AUTO 				71
+#define FMANUAL 			81
+#define CONFIG				91
 
 extern int status;
 

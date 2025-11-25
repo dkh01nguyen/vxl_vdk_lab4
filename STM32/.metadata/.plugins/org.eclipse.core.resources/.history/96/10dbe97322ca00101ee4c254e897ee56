@@ -1,0 +1,36 @@
+/*
+ * fsm_traffic_light.c
+ *
+ *  Created on: Nov 26, 2025
+ *      Author: nguyen
+ */
+
+#include "fsm_traffic_light.h"
+
+int MODE = INIT;
+void fsm() {
+	switch (mode) {
+		case INIT:
+			mode = AUTO;
+			status = INIT;
+		case AUTO:
+			fsm_auto();
+			if (isButtonPressed(0) == 1){
+				mode = CONFIG;
+				status = MODE2;
+			}
+
+			if (isButtonPressed(1) == 1){
+				mode = FMANUAL;
+				status = MODE6;
+			}
+
+			if (isButtonPressed(2) == 1){
+				mode = FMANUAL;
+				status = MODE5;
+			}
+		case CONFIG:
+			fsm_config();
+	}
+}
+

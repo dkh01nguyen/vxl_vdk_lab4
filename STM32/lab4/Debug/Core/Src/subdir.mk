@@ -10,6 +10,7 @@ C_SRCS += \
 ../Core/Src/fsm_auto.c \
 ../Core/Src/fsm_config.c \
 ../Core/Src/fsm_manual.c \
+../Core/Src/fsm_traffic_light.c \
 ../Core/Src/global.c \
 ../Core/Src/main.c \
 ../Core/Src/scheduler.c \
@@ -26,6 +27,7 @@ OBJS += \
 ./Core/Src/fsm_auto.o \
 ./Core/Src/fsm_config.o \
 ./Core/Src/fsm_manual.o \
+./Core/Src/fsm_traffic_light.o \
 ./Core/Src/global.o \
 ./Core/Src/main.o \
 ./Core/Src/scheduler.o \
@@ -42,6 +44,7 @@ C_DEPS += \
 ./Core/Src/fsm_auto.d \
 ./Core/Src/fsm_config.d \
 ./Core/Src/fsm_manual.d \
+./Core/Src/fsm_traffic_light.d \
 ./Core/Src/global.d \
 ./Core/Src/main.d \
 ./Core/Src/scheduler.d \

@@ -1,14 +1,7 @@
 #include "fsm_traffic_light.h"
 
-int status = INIT;
-
 void fsm_auto() {
 	switch(status){
-		//INIT
-		case INIT:
-			status = MODE1;
-			break;
-
 		//MODE1
 		case MODE1:
 			status = RED_GREEN;
@@ -55,6 +48,7 @@ void fsm_auto() {
 				update7SEG(index_led);
 				setTimer(2, 250);
 			}
+
 			// If button 1 is pressed, come to MODE2
 			if (isButtonPressed(0) == 1){
 				status = MODE2;

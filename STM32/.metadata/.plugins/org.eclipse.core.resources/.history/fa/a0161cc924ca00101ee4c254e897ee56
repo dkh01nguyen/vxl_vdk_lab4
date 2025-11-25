@@ -1,0 +1,174 @@
+#include "fsm_traffic_light.h"
+
+int status = INIT;
+
+void fsm_auto() {
+	switch(status){
+		//INIT
+		case INIT:
+			status = MODE1;
+			break;
+
+		//MODE1
+		case MODE1:
+			status = RED_GREEN;
+			//Set up LED
+			HAL_GPIO_WritePin(R1_GPIO_Port, R1_Pin, RESET);
+			HAL_GPIO_WritePin(A1_GPIO_Port, A1_Pin, SET);
+			HAL_GPIO_WritePin(G1_GPIO_Port, G1_Pin, SET);
+			HAL_GPIO_WritePin(R1_GPIO_Port, R1_Pin, SET);
+			HAL_GPIO_WritePin(A2_GPIO_Port, A2_Pin, SET);
+			HAL_GPIO_WritePin(G2_GPIO_Port, G2_Pin, RESET);
+
+			//Set up default value
+			counter1 = counter2 = 1;
+			index_led = 0;
+			updateLedBufferMode1();
+			update7SEG(index_led);
+
+			//Set timer
+			setTimer(0, GREEN * 1000);	// Set timer for RED_GREEN
+			setTimer(1, 1000);			// Set timer for updateLedBufferMode1
+			setTimer(2, 250);			// Set timer for 7SEG LED
+			clearTimer(3);				// Clear timer for blinking LED
+
+			break;
+
+		case RED_GREEN:
+			//Set up LED
+			HAL_GPIO_WritePin(R1_GPIO_Port, R1_Pin, RESET);
+			HAL_GPIO_WritePin(A1_GPIO_Port, A1_Pin, SET);
+			HAL_GPIO_WritePin(R2_GPIO_Port, R2_Pin, SET);
+			HAL_GPIO_WritePin(G2_GPIO_Port, G2_Pin, RESET);
+
+			if (timer_flag[0] == 1){
+				status = RED_AMBER;
+				setTimer(0, AMBER * 1000);
+			}
+
+			if (timer_flag[1] == 1){
+				updateLedBufferMode1();
+				setTimer(1, 1000);
+			}
+
+			if (timer_flag[2] == 1){
+				update7SEG(index_led);
+				setTimer(2, 250);
+			}
+
+			// If button 1 is pressed, come to MODE2
+			if (isButtonPressed(0) == 1){
+				status = MODE2;
+			}
+
+			if (isButtonPressed(1) == 1){
+				status = MODE6;
+			}
+
+			if (isButtonPressed(2) == 1){
+				status = MODE5;
+			}
+			break;
+
+		case RED_AMBER:
+			//Set up LED
+			HAL_GPIO_WritePin(G2_GPIO_Port, G2_Pin, SET);
+			HAL_GPIO_WritePin(A2_GPIO_Port, A2_Pin, RESET);
+
+			if (timer_flag[0] == 1){
+				status = GREEN_RED;
+				setTimer(0, GREEN * 1000);
+			}
+
+			if (timer_flag[1] == 1){
+				updateLedBufferMode1();
+				setTimer(1, 1000);
+			}
+
+			if (timer_flag[2] == 1){
+				update7SEG(index_led);
+				setTimer(2, 250);
+			}
+			// If button 1 is pressed, come to MODE2
+			if (isButtonPressed(0) == 1){
+				status = MODE2;
+			}
+
+			if (isButtonPressed(1) == 1){
+				status = MODE6;
+			}
+
+			if (isButtonPressed(2) == 1){
+				status = MODE5;
+			}
+			break;
+
+		case GREEN_RED:
+			//Set up LED
+			HAL_GPIO_WritePin(R1_GPIO_Port, R1_Pin, SET);
+			HAL_GPIO_WritePin(G1_GPIO_Port, G1_Pin, RESET);
+			HAL_GPIO_WritePin(A2_GPIO_Port, A2_Pin, SET);
+			HAL_GPIO_WritePin(R2_GPIO_Port, R2_Pin, RESET);
+
+			if (timer_flag[0] == 1){
+				status = AMBER_RED;
+				setTimer(0, AMBER * 1000);
+			}
+
+			if (timer_flag[1] == 1){
+				updateLedBufferMode1();
+				setTimer(1, 1000);
+			}
+
+			if (timer_flag[2] == 1){
+				update7SEG(index_led);
+				setTimer(2, 250);
+			}
+
+			if (isButtonPressed(0) == 1){
+				status = MODE2;
+			}
+
+			if (isButtonPressed(1) == 1){
+				status = MODE6;
+			}
+
+			if (isButtonPressed(2) == 1){
+				status = MODE5;
+			}
+			break;
+
+		case AMBER_RED:
+			//Set up LED
+			HAL_GPIO_WritePin(A1_GPIO_Port, A1_Pin, RESET);
+			HAL_GPIO_WritePin(G1_GPIO_Port, G1_Pin, SET);
+
+			if (timer_flag[0] == 1){
+				status = RED_GREEN;
+				setTimer(0, GREEN * 1000);
+			}
+
+			if (timer_flag[1] == 1){
+				updateLedBufferMode1();
+				setTimer(1, 1000);
+			}
+
+			if (timer_flag[2] == 1){
+				update7SEG(index_led);
+				setTimer(2, 250);
+			}
+			// If button 1 is pressed, come to MODE2
+			if (isButtonPressed(0) == 1){
+				status = MODE2;
+			}
+
+			if (isButtonPressed(1) == 1){
+				status = MODE6;
+			}
+
+			if (isButtonPressed(2) == 1){
+				status = MODE5;
+			}
+			break;
+	}
+}

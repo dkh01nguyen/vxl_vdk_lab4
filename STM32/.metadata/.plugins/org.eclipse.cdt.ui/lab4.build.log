@@ -1,22 +1,10 @@
-23:45:02 **** Incremental Build of configuration Debug for project lab4 ****
+00:47:58 **** Incremental Build of configuration Debug for project lab4 ****
 make -j12 all 
-arm-none-eabi-gcc -o "lab4.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\VXL_VDK_Lab\Lab 4\STM32\lab4\STM32F103C6UX_FLASH.ld" --specs=nosys.specs -Wl,-Map="lab4.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: lab4.elf
- 
 arm-none-eabi-size   lab4.elf 
-arm-none-eabi-objdump -h -S  lab4.elf  > "lab4.list"
-arm-none-eabi-objcopy  -O ihex  lab4.elf  "lab4.hex"
-arm-none-eabi-objcopy  -O binary  lab4.elf  "lab4.bin"
    text	   data	    bss	    dec	    hex	filename
-  13312	    204	   1776	  15292	   3bbc	lab4.elf
+  11128	    204	   1776	  13108	   3334	lab4.elf
 Finished building: default.size.stdout
  
-Finished building: lab4.hex
-Finished building: lab4.bin
- 
- 
-Finished building: lab4.list
- 
 
-23:45:02 Build Finished. 0 errors, 0 warnings. (took 511ms)
+00:47:58 Build Finished. 0 errors, 0 warnings. (took 253ms)
 
