@@ -12,12 +12,6 @@ static uint8_t taskID = 0;
 static uint64_t tick = 0;
 
 
-void SCH_Init(){
-	head = NULL;
-	taskID = 0;
-	tick = 0;
-}
-
 void SCH_Update(){
 	tick++;
 
@@ -66,7 +60,6 @@ uint32_t SCH_Add_Task(void (* pFunction)(), uint32_t DELAY, uint32_t PERIOD){
 	} else {
 		prev->next = newTask; // n^th tasks of the scheduler
 	}
-
 	return newTask->TaskID;
 }
 
@@ -111,18 +104,7 @@ void SCH_Dispatch_Tasks(void){
 
 			//Two types of task: periodic and one-shot, handle one-shot first
 
-			if (tmp->PERIOD == 0) {
-				Task *deleteTask = tmp;
-				if (prev == NULL) {
-					head = tmp->next;
-					tmp = head;
-				} else {
-					prev->next = tmp->next;
-					tmp = prev->next;
-				}
-
-				free(deleteTask);
-			} else { // Periodic handling
+			if (tmp->PERIOD > 0) {
 				tmp->DELAY = tmp->PERIOD;
 
 				Task* reinsertTask = tmp;
@@ -155,6 +137,17 @@ void SCH_Dispatch_Tasks(void){
 				}
 
 				tmp = (prev == NULL) ? head : prev->next;
+			} else { // Periodic handling
+				Task *deleteTask = tmp;
+				if (prev == NULL) {
+					head = tmp->next;
+					tmp = head;
+				} else {
+					prev->next = tmp->next;
+					tmp = prev->next;
+				}
+
+				free(deleteTask);
 			}
 		} else {
 			prev = tmp;

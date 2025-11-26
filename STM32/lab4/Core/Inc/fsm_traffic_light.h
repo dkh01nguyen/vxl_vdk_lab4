@@ -10,8 +10,8 @@
 
 void fsm();
 
-void fsm_manual();
 void fsm_auto();
+void fsm_manual();
 void fsm_config();
 
 extern int status;

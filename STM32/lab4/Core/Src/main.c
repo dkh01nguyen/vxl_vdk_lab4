@@ -51,9 +51,7 @@ void blink_LED() {
 TIM_HandleTypeDef htim2;
 
 /* USER CODE BEGIN PV */
-void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef * htim){
-	SCH_Update();
-}
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -62,6 +60,9 @@ static void MX_GPIO_Init(void);
 static void MX_TIM2_Init(void);
 /* USER CODE BEGIN PFP */
 
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef * htim){
+  	SCH_Update();
+}
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -100,11 +101,11 @@ int main(void)
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim2);
-  SCH_Init();
+
   SCH_Add_Task(getKeyInput, 0, 1);
   SCH_Add_Task(timerRun, 0, 1);
-  SCH_Add_Task(fsm, 1, 1);
-  SCH_Add_Task(blink_LED, 0, 50);
+  SCH_Add_Task(fsm, 0, 1);
+  SCH_Add_Task(blink_LED, 0, 100);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -194,7 +195,6 @@ static void MX_TIM2_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN TIM2_Init 2 */
-
   /* USER CODE END TIM2_Init 2 */
 
 }

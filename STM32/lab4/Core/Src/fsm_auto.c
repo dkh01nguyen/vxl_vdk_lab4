@@ -48,19 +48,6 @@ void fsm_auto() {
 				update7SEG(index_led);
 				setTimer(2, 250);
 			}
-
-			// If button 1 is pressed, come to MODE2
-			if (isButtonPressed(0) == 1){
-				status = MODE2;
-			}
-
-			if (isButtonPressed(1) == 1){
-				status = MODE6;
-			}
-
-			if (isButtonPressed(2) == 1){
-				status = MODE5;
-			}
 			break;
 
 		case RED_AMBER:
@@ -81,18 +68,6 @@ void fsm_auto() {
 			if (timer_flag[2] == 1){
 				update7SEG(index_led);
 				setTimer(2, 250);
-			}
-			// If button 1 is pressed, come to MODE2
-			if (isButtonPressed(0) == 1){
-				status = MODE2;
-			}
-
-			if (isButtonPressed(1) == 1){
-				status = MODE6;
-			}
-
-			if (isButtonPressed(2) == 1){
-				status = MODE5;
 			}
 			break;
 
@@ -117,18 +92,6 @@ void fsm_auto() {
 				update7SEG(index_led);
 				setTimer(2, 250);
 			}
-
-			if (isButtonPressed(0) == 1){
-				status = MODE2;
-			}
-
-			if (isButtonPressed(1) == 1){
-				status = MODE6;
-			}
-
-			if (isButtonPressed(2) == 1){
-				status = MODE5;
-			}
 			break;
 
 		case AMBER_RED:
@@ -149,18 +112,6 @@ void fsm_auto() {
 			if (timer_flag[2] == 1){
 				update7SEG(index_led);
 				setTimer(2, 250);
-			}
-			// If button 1 is pressed, come to MODE2
-			if (isButtonPressed(0) == 1){
-				status = MODE2;
-			}
-
-			if (isButtonPressed(1) == 1){
-				status = MODE6;
-			}
-
-			if (isButtonPressed(2) == 1){
-				status = MODE5;
 			}
 			break;
 	}

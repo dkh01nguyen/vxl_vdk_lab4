@@ -22,7 +22,6 @@ void update7SEG(int index){
 	display7SEG(led_buffer[index]);
 	switch(index){
 		case 0:
-			// Display the first 7 SEG with led_buffer [0]
 			index_led = 1;
 			HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, RESET);
 			HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, SET);
@@ -30,7 +29,6 @@ void update7SEG(int index){
 			HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, SET);
 			break;
 		case 1:
-			// Display the second 7 SEG with led_buffer [1]
 			index_led = 2;
 			HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, SET);
 			HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, RESET);
@@ -38,7 +36,6 @@ void update7SEG(int index){
 			HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, SET);
 			break;
 		case 2:
-			// Display the third 7 SEG with led_buffer [2]
 			index_led = 3;
 			HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, SET);
 			HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, SET);
@@ -46,7 +43,6 @@ void update7SEG(int index){
 			HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, SET);
 			break;
 		case 3:
-			// Display the forth 7 SEG with led_buffer [3]
 			index_led = 0;
 			HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, SET);
 			HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, SET);

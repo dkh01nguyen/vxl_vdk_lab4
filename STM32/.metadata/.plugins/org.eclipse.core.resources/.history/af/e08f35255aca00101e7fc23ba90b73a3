@@ -1,0 +1,59 @@
+/*
+ * fsm_traffic_light.c
+ *
+ *  Created on: Nov 26, 2025
+ *      Author: nguyen
+ */
+
+#include "fsm_traffic_light.h"
+
+int mode = INIT;
+int status = INIT;
+
+void fsm() {
+	switch (mode) {
+		case INIT:
+			mode = AUTO;
+			status = MODE1;
+			break;
+		case AUTO:
+			if (isButtonPressed(0) == 1){
+				mode = CONFIG;
+				status = MODE2; // Change to configuration state
+			}
+
+			if (isButtonPressed(2) == 1){
+				mode = FMANUAL;
+				status = MODE5; // Change to amber flash mode
+			}
+
+			if (isButtonPressed(1) == 1){
+				mode = FMANUAL;
+				status = MODE6; // Change to manual
+			}
+			fsm_auto();
+			break;
+		case CONFIG:
+			if (isButtonPressed(2) == 1 && status == AUTO_GREEN) {
+				status = MODE1;
+				mode = AUTO;
+			}
+			fsm_config();
+			break;
+		case FMANUAL:
+			if ((isButtonPressed(0) == 1 || isButtonPressed(2) == 1) && status == FLASH_AMBER){
+				mode = AUTO; // flash amber state
+				status = MODE1;
+			}
+
+			if (isButtonPressed(2) == 1 && status == MANUAL) {  // Manual state - the first button is
+				mode = AUTO; 									// useless at this point
+				status = MODE1;
+			}
+			fsm_manual();
+			break;
+		default:
+			break;
+	}
+}
+

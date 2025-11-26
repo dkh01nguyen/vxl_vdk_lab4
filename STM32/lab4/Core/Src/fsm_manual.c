@@ -21,9 +21,6 @@ void fsm_manual(){
 				HAL_GPIO_TogglePin(A2_GPIO_Port, A2_Pin);
 				setTimer(3, 500);
 			}
-			if (isButtonPressed(0) == 1 || isButtonPressed(2) == 1){
-				status = MODE1;
-			}
 			break;
 		case MODE6:
 			HAL_GPIO_WritePin(R1_GPIO_Port, R1_Pin, RESET);
@@ -65,10 +62,6 @@ void fsm_manual(){
 						break;
 					}
 				}
-
-			if (isButtonPressed(2) == 1) {
-				status = MODE1;
-			}
 		default:
 			break;
 	}

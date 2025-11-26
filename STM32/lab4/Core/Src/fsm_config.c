@@ -48,7 +48,6 @@ void fsm_config() {
 						RED++;
 					}
 			}
-
 			if (isButtonPressed(2) == 1){
 				status = MODE3;
 				RED = t;
